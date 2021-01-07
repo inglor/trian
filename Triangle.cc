@@ -1,8 +1,6 @@
 #include "Triangle.hh"
 
-Triangle::Triangle() {
-  vertex_x = vertex_y = vertex_z = nullptr;
-}
+Triangle::Triangle() { vertex_x = vertex_y = vertex_z = nullptr; }
 
 Triangle::Triangle(Vertex *x, Vertex *y, Vertex *z) {
   vertex_x = x;

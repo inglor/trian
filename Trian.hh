@@ -2,16 +2,17 @@
 #define TRIAN_TRIAN_HH
 
 #include <cstdio>
-#include <iostream>
-#include <cstring>
 #include <cstdlib>
+#include <cstring>
+#include <iostream>
+
 #include "Mesh.hh"
 
 #define TRIAN_DEF_POOL_SIZE 1024
 #define TRIAN_DATA_SET_FILE "coords.bin"
 
 class Trian {
-public:
+ public:
   Trian();
 
   Trian(int argc, char **argv);
@@ -20,7 +21,7 @@ public:
 
   void Trian_Initiate();
 
-private:
+ private:
   void Trian_Arguments();
 
   void Trian_ShowArgs();
@@ -34,4 +35,4 @@ private:
   Mesh *aMesh{};
 };
 
-#endif //TRIAN_TRIAN_HH
+#endif  // TRIAN_TRIAN_HH

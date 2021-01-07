@@ -6,18 +6,17 @@
 using namespace std;
 
 class Triangle {
-public:
+ public:
   Triangle();
 
   Triangle(Vertex *, Vertex *, Vertex *);
 
   virtual ~Triangle();
 
-private:
+ private:
   Vertex *vertex_x;
   Vertex *vertex_y;
   Vertex *vertex_z;
-
 };
 
-#endif //TRIAN_TRIANGLE_HH
+#endif  // TRIAN_TRIANGLE_HH

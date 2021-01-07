@@ -11,7 +11,7 @@ Mesh::Mesh(FILE *input_file) {
   pool = nullptr;
   pool_size = 0;
 
-  fread((void *) &pool_size, sizeof(pool_size), 1, input_file);
+  fread((void *)&pool_size, sizeof(pool_size), 1, input_file);
   cout << "Pool size read: " << pool_size << std::endl;
   pool = new Vertex *[pool_size];
 
@@ -22,7 +22,7 @@ Mesh::Mesh(FILE *input_file) {
   while (cp) {
     cp--;
     if (c == 0) {
-      c = fread((void *) buffer, sizeof(float), 3 * 1024, input_file);
+      c = fread((void *)buffer, sizeof(float), 3 * 1024, input_file);
     }
     for (int i = 1; i < 3; i++) {
       cout << "v:" << buffer[i] << std::endl;
@@ -40,7 +40,7 @@ Mesh::Mesh(int size, bool temp) {
 int Mesh::Trian_Mesh_Save_Dataset(FILE *f) {
   float buffer[3 * 1024];
 
-  fwrite((void *) &pool_size, sizeof(pool_size), 1, f);
+  fwrite((void *)&pool_size, sizeof(pool_size), 1, f);
   int cp = pool_size;
   int c = 0;
   while (cp) {
@@ -52,7 +52,7 @@ int Mesh::Trian_Mesh_Save_Dataset(FILE *f) {
     buffer[c] = pool[cp]->Trian_Vertex_Get_Float(2);
     c++;
     if (c == 3 * 1024 || cp == 0) {
-      fwrite((void *) buffer, sizeof(float), c, f);
+      fwrite((void *)buffer, sizeof(float), c, f);
       c = 0;
     }
   }

@@ -4,13 +4,14 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
-#include "Triangle.hh"
+
 #include "Functions.hh"
+#include "Triangle.hh"
 
 using namespace std;
 
 class Mesh {
-public:
+ public:
   Mesh();
 
   explicit Mesh(FILE *);
@@ -23,12 +24,11 @@ public:
 
   void Trian_Mesh_ShowPool();
 
-private:
+ private:
   void Trian_Mesh_RandPool();
 
   Vertex **pool;
   int pool_size;
 };
 
-
-#endif //TRIAN_MESH_HH
+#endif  // TRIAN_MESH_HH

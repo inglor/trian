@@ -3,8 +3,11 @@ project(trian)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(OpenGlLinkers -lglut -lGLU -lGL)
+find_package(OpenGL REQUIRED)
+find_package(GLUT REQUIRED)
 
-add_executable(trian main.cc Vertex.cc Vertex.hh Edge.cc Edge.hh Triangle.cc Triangle.hh Mesh.cc Mesh.hh Trian.cc Trian.hh Functions.hh)
+file(GLOB SRCS *.cc)
 
-target_link_libraries(trian ${OpenGlLinkers}) # linking opengl libraries to the project
+add_executable(trian ${SRCS})
+
+target_link_libraries(trian ${OPENGL_LIBRARIES} ${GLUT_LIBRARY})

@@ -1,8 +1,6 @@
-
 #include "Trian.hh"
 
 using namespace std;
-
 
 Trian::Trian() = default;
 
@@ -26,12 +24,12 @@ void Trian::Trian_Arguments() {
   while (temp_argc > 0) {
     temp_argc--;
     if (strstr(Argv[temp_argc], "--DataSet")) {
-      dataset = strstr(Argv[temp_argc], "=")+1;
+      dataset = strstr(Argv[temp_argc], "=") + 1;
       Use_DataFile = 1;
       cout << "Using Datafile.." << endl;
     }
     if (strstr(Argv[temp_argc], "--PoolSize")) {
-      poolsize = stoi(strstr(Argv[temp_argc], "=")+1);
+      poolsize = stoi(strstr(Argv[temp_argc], "=") + 1);
       Use_DataFile = 0;
       cout << "Creating random Mesh with pool size of " << poolsize << endl;
     }
@@ -59,6 +57,4 @@ void Trian::Trian_Initiate() {
   aMesh->Trian_Mesh_ShowPool();
 }
 
-Trian::~Trian() {
-  delete aMesh;
-}
+Trian::~Trian() { delete aMesh; }

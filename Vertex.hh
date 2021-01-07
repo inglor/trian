@@ -1,13 +1,13 @@
 #ifndef TRIAN_VERTEX_HH
 #define TRIAN_VERTEX_HH
 
-#include <vector>
 #include <cstdio>
+#include <vector>
 
 using namespace std;
 
 class Vertex {
-public:
+ public:
   Vertex();
 
   Vertex(float, float);
@@ -20,9 +20,9 @@ public:
 
   float Trian_Vertex_Get_Float(int);
 
-private:
+ private:
   std::vector<float> coords;
   std::vector<float>::iterator coords_iterator;
 };
 
-#endif //TRIAN_VERTEX_HH
+#endif  // TRIAN_VERTEX_HH

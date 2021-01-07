@@ -4,16 +4,16 @@
 #include "Vertex.hh"
 
 class Edge {
-public:
+ public:
   Edge();
 
   Edge(Vertex *, Vertex *);
 
   virtual ~Edge();
 
-private:
+ private:
   Vertex *vertex_x;
   Vertex *vertex_y;
 };
 
-#endif //TRIAN_EDGE_HH
+#endif  // TRIAN_EDGE_HH
