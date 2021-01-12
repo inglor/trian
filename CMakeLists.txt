@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.16)
 project(trian
 	DESCRIPTION "inglor's Delaunay triangulation"
 	HOMEPAGE_URL "https://github.com/inglor/trian"
