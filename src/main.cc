@@ -1,13 +1,40 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include <cstring>
 #include <iostream>
+#include <memory>
 
-#include "Trian.hh"
+#include "Mesh.hh"
 GLFWwindow *window;
 #include <glm/glm.hpp>
 
 using namespace glm;
+
+static int poolsize = 1024;
+static bool DataFileUse = false;
+static const char *DataFileName = "coords.bin";
+
+static void ArgsCLIShow(int argc, char **argv) {
+  int temp_argc = argc;
+  while (temp_argc-- > 0) {
+    std::cout << "Arg[ " << temp_argc << " ] - [ " << argv[temp_argc] << " ]\n";
+  }
+}
+
+static void ArgsCLIParse(int argc, char **argv) {
+  int temp_argc = argc;
+  while (temp_argc-- > 0) {
+    if (strstr(argv[temp_argc], "--DataSet")) {
+      DataFileName = strstr(argv[temp_argc], "=") + 1;
+      DataFileUse = true;
+    }
+    if (strstr(argv[temp_argc], "--PoolSize")) {
+      poolsize = std::stoi(strstr(argv[temp_argc], "=") + 1);
+      DataFileUse = false;
+    }
+  }
+}
 
 int main(int argc, char **argv) {
   // Initialise GLFW
@@ -68,8 +95,29 @@ int main(int argc, char **argv) {
   // Close OpenGL window and terminate GLFW
   glfwTerminate();
 
-  auto *Triangle = new Trian(argc, argv);
-  Triangle->Trian_Initiate();
+  std::cout << "arguments given:\n";
+  ArgsCLIShow(argc, argv);
+  ArgsCLIParse(argc, argv);
+
+  std::unique_ptr<Mesh> MyMesh;
+  if (DataFileUse) {
+    std::cout << "Reading Mesh from datafile: " << std::string{DataFileName}
+              << "\n";
+    FILE *fp = fopen(DataFileName, "rb");
+    if (!fp) {
+      std::cerr << "Error opening input file: " << std::string{DataFileName}
+                << "Exiting\n";
+      exit(-1);
+    }
+    MyMesh = std::make_unique<Mesh>(fp);
+    fclose(fp);
+  } else {
+    std::cout << "Creating Mesh of random points with pool size of " << poolsize
+              << "\n";
+    MyMesh = std::make_unique<Mesh>(poolsize);
+  }
+  MyMesh->PrintFirstN();
+
   //  Mesh *aMesh = new Mesh(1024, false);
   //  fprintf(stdout, "New Mesh Created\nAs long as a [%d] vertex pool", 1024);
 

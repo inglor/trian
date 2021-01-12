@@ -1,34 +1,22 @@
 #ifndef TRIAN_MESH_HH
 #define TRIAN_MESH_HH
 
-#include <cstdio>
-#include <cstdlib>
-#include <iostream>
+#include <vector>
 
-#include "Functions.hh"
 #include "Vertex.hh"
-
-using namespace std;
 
 class Mesh {
  public:
-  Mesh();
-
+  explicit Mesh(int);
   explicit Mesh(FILE *);
 
-  Mesh(int, bool);
-
-  virtual ~Mesh();
-
-  int Trian_Mesh_Save_Dataset(FILE *);
-
-  void Trian_Mesh_ShowPool();
+  void SaveToFile(FILE *);
+  void PrintFirstN(size_t N = 10);
 
  private:
-  void Trian_Mesh_RandPool();
+  void Init_Random_Values(size_t);
 
-  Vertex **pool;
-  int pool_size;
+  std::vector<Vertex> pool;
 };
 
 #endif  // TRIAN_MESH_HH

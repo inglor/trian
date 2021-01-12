@@ -1,19 +1,21 @@
 #include "Mesh.hh"
 
-using namespace std;
+#include <cassert>
+#include <iostream>
+#include <random>
 
-Mesh::Mesh() {
-  pool = nullptr;
-  pool_size = 0;
+static float Random_Float_Between(float min, float max) {
+  static std::random_device random;
+  static std::default_random_engine random_engine(random());
+  static std::uniform_real_distribution<> random_distribution(min, max);
+  return random_distribution(random_engine);
 }
 
 Mesh::Mesh(FILE *input_file) {
-  pool = nullptr;
-  pool_size = 0;
-
-  fread((void *)&pool_size, sizeof(pool_size), 1, input_file);
-  cout << "Pool size read: " << pool_size << std::endl;
-  pool = new Vertex *[pool_size];
+  std::vector<Vertex>::size_type pool_size;
+  fread(&pool_size, sizeof(std::vector<Vertex>::size_type), 1, input_file);
+  std::cout << "Pool size read: " << pool_size << std::endl;
+  pool.reserve(pool_size);
 
   float buffer[3 * 1024];
   float c = 0;
@@ -25,59 +27,53 @@ Mesh::Mesh(FILE *input_file) {
       c = fread((void *)buffer, sizeof(float), 3 * 1024, input_file);
     }
     for (int i = 1; i < 3; i++) {
-      cout << "v:" << buffer[i] << std::endl;
+      std::cout << "v:" << buffer[i] << std::endl;
     }
+    assert(0 == 1 && "NIKOS: this is definitelly wrong, FIX IT");
+    pool[c] = Vertex(buffer[0], buffer[1], buffer[2]);
     c--;
   }
 }
 
-Mesh::Mesh(int size, bool temp) {
-  pool = new Vertex *[size];
-  pool_size = size;
-  Trian_Mesh_RandPool();
+Mesh::Mesh(int size) {
+  pool.reserve(size);
+  Init_Random_Values(size);
 }
 
-int Mesh::Trian_Mesh_Save_Dataset(FILE *f) {
+// NIKOS TODO: copying to buffer and writing out is useless, replace with
+// simpler IO or maybe with using directly the pool.data() buffer
+void Mesh::SaveToFile(FILE *f) {
   float buffer[3 * 1024];
 
-  fwrite((void *)&pool_size, sizeof(pool_size), 1, f);
-  int cp = pool_size;
+  fwrite(pool.data(), sizeof(std::vector<Vertex>::size_type), 1, f);
+  int cp = pool.size();
   int c = 0;
   while (cp) {
     cp--;
-    buffer[c] = pool[cp]->Trian_Vertex_Get_Float(0);
+    buffer[c] = pool[cp][0];
     c++;
-    buffer[c] = pool[cp]->Trian_Vertex_Get_Float(1);
+    buffer[c] = pool[cp][1];
     c++;
-    buffer[c] = pool[cp]->Trian_Vertex_Get_Float(2);
+    buffer[c] = pool[cp][2];
     c++;
     if (c == 3 * 1024 || cp == 0) {
       fwrite((void *)buffer, sizeof(float), c, f);
       c = 0;
     }
   }
-  return 0;
 }
 
-Mesh::~Mesh() {
-  for (int i = 0; i < pool_size; i++) {
-    if (pool[i]) {
-      delete pool[i];
-    }
-  }
-  delete pool;
-}
-
-void Mesh::Trian_Mesh_RandPool() {
-  for (int i = 0; i < pool_size; i++) {
-    pool[i] = new Vertex(trian::Random_Float_Between(0.0, 10.0),
-                         trian::Random_Float_Between(0.0, 10.0),
-                         trian::Random_Float_Between(0.0, 10.0));
+void Mesh::Init_Random_Values(size_t N) {
+  for (size_t i = 0; i < N; i++) {
+    pool.push_back(Vertex(Random_Float_Between(0.0, 10.0),
+                          Random_Float_Between(0.0, 10.0),
+                          Random_Float_Between(0.0, 10.0)));
   }
 }
 
-void Mesh::Trian_Mesh_ShowPool() {
-  for (int i = 0; i < pool_size && i < 10; i++) {
-    pool[i]->Trian_Vertex_show_coords();
+void Mesh::PrintFirstN(size_t N) {
+  std::cout << "Printing top " << N << " vertices\n";
+  for (size_t i = 0; i < pool.size() && i < N; i++) {
+    std::cout << "v[" << i << "] = " << pool[i] << "\n";
   }
 }
