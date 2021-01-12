@@ -6,7 +6,7 @@
 #include <iostream>
 
 #include "Functions.hh"
-#include "Triangle.hh"
+#include "Vertex.hh"
 
 using namespace std;
 
