@@ -22,7 +22,7 @@ jobs:
 
     steps:
     - name: Install packages
-      run: sudo apt-get install freeglut3-dev libglfw3-dev libglew-dev
+      run: sudo apt-get update && sudo apt-get install -y --no-install-recommends freeglut3-dev libglfw3-dev libglew-dev
 
     - uses: actions/checkout@v2
 
