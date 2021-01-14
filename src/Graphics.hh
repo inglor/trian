@@ -1,5 +1,5 @@
-#ifndef TRIAN_GRAPHICS_HH
-#define TRIAN_GRAPHICS_HH
+#pragma once
+
 class Graphics {
  public:
   Graphics();
@@ -7,4 +7,3 @@ class Graphics {
   void Background(float, float, float);
   void loop(void);
 };
-#endif  // TRIAN_GRAPHICS_HH
