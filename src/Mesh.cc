@@ -65,9 +65,9 @@ void Mesh::SaveToFile(FILE *f) {
 
 void Mesh::Init_Random_Values(size_t N) {
   for (size_t i = 0; i < N; i++) {
-    pool.push_back(Vertex(Random_Float_Between(0.0, 10.0),
-                          Random_Float_Between(0.0, 10.0),
-                          Random_Float_Between(0.0, 10.0)));
+    pool.emplace_back(Random_Float_Between(0.0, 10.0),
+                      Random_Float_Between(0.0, 10.0),
+                      Random_Float_Between(0.0, 10.0));
   }
 }
 
