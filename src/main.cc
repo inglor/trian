@@ -53,6 +53,7 @@ int main(int argc, char **argv) {
     MyMesh = std::make_unique<Mesh>(poolsize);
   }
   MyMesh->PrintFirstN();
+  MyMesh->Triangulate2D();
 
   Graphics visualize;
   visualize.Background(0.0f, 0.0f, 0.4f);  // Dark blue background
