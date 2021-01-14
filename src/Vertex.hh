@@ -1,5 +1,4 @@
-#ifndef TRIAN_VERTEX_HH
-#define TRIAN_VERTEX_HH
+#pragma once
 
 #include <iostream>
 
@@ -15,4 +14,3 @@ class Vertex {
  private:
   float coords[3] = {0., 0., 0.};
 };
-#endif  // TRIAN_VERTEX_HH

@@ -1,5 +1,4 @@
-#ifndef TRIAN_GRAPHICS_HH
-#define TRIAN_GRAPHICS_HH
+#pragma once
 #include <vector>
 
 #include "Mesh.hh"
@@ -21,4 +20,3 @@ class Graphics {
   GLuint vao;
   GLuint vbo;
 };
-#endif  // TRIAN_GRAPHICS_HH

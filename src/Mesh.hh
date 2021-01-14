@@ -1,5 +1,4 @@
-#ifndef TRIAN_MESH_HH
-#define TRIAN_MESH_HH
+#pragma once
 
 #include <vector>
 
@@ -21,5 +20,3 @@ class Mesh {
 
   std::vector<Vertex> pool;
 };
-
-#endif  // TRIAN_MESH_HH
