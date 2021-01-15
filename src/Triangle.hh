@@ -4,9 +4,10 @@
 
 class Triangle {
  public:
-  Triangle(Vertex x, Vertex y, Vertex z) : vertices{x, y, z} {};
+  Triangle(Vertex x, Vertex y, Vertex z);
   friend std::ostream& operator<<(std::ostream&, const Triangle&);
 
  private:
   Vertex vertices[3];
+  float circumradius;
 };
