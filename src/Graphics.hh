@@ -5,5 +5,5 @@ class Graphics {
   Graphics();
   ~Graphics();
   void Background(float, float, float);
-  void loop(void);
+  void loop();
 };

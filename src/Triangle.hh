@@ -1,5 +1,4 @@
-#ifndef TRIAN_TRIANGLE_HH
-#define TRIAN_TRIANGLE_HH
+#pragma once
 
 #include "Vertex.hh"
 
@@ -11,5 +10,3 @@ class Triangle {
  private:
   Vertex vertices[3];
 };
-
-#endif  // TRIAN_TRIANGLE_HH

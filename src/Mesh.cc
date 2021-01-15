@@ -66,9 +66,9 @@ void Mesh::SaveToFile(FILE *f) {
 
 void Mesh::Init_Random_Values(size_t N) {
   for (size_t i = 0; i < N; i++) {
-    pool.emplace_back(Random_Float_Between(0.0, 10.0),
-                      Random_Float_Between(0.0, 10.0),
-                      Random_Float_Between(0.0, 10.0));
+    pool.emplace_back(Random_Float_Between(MIN_VERTEX_FLOAT, MAX_VERTEX_FLOAT),
+                      Random_Float_Between(MIN_VERTEX_FLOAT, MAX_VERTEX_FLOAT),
+                      Random_Float_Between(MIN_VERTEX_FLOAT, MAX_VERTEX_FLOAT));
   }
 }
 
@@ -80,22 +80,15 @@ void Mesh::PrintFirstN(size_t N) {
 }
 
 void Mesh::Triangulate2D() {
-  auto min_x = std::min_element(pool.begin(), pool.end(), compare_x)
-                   .base()
-                   ->
-                   operator[](COORD_X_INDEX);
-  auto max_x = std::max_element(pool.begin(), pool.end(), compare_x)
-                   .base()
-                   ->
-                   operator[](COORD_X_INDEX);
-  auto min_y = std::min_element(pool.begin(), pool.end(), compare_y)
-                   .base()
-                   ->
-                   operator[](COORD_Y_INDEX);
-  auto max_y = std::max_element(pool.begin(), pool.end(), compare_y)
-                   .base()
-                   ->
-                   operator[](COORD_Y_INDEX);
+  auto min_x =
+      (*std::min_element(pool.begin(), pool.end(), compare_x))[COORD_X_INDEX];
+  auto max_x =
+      (*std::max_element(pool.begin(), pool.end(), compare_x))[COORD_X_INDEX];
+  auto min_y =
+      (*std::min_element(pool.begin(), pool.end(), compare_y))[COORD_Y_INDEX];
+  auto max_y =
+      (*std::max_element(pool.begin(), pool.end(), compare_y))[COORD_X_INDEX];
+
   auto superTriangle =
       Triangle(Vertex(min_x - 1.0f, min_y - 1.0f, 0.0f),
                Vertex(min_x - 1.0f, 2.0f * max_y + 1.0f, 0.0f),
