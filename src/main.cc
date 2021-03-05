@@ -35,7 +35,9 @@ int main(int argc, char **argv) {
   ArgsCLIShow(argc, argv);
   ArgsCLIParse(argc, argv);
 
-  std::unique_ptr<Mesh> MyMesh;
+  std::unique_ptr<Mesh>
+      MyMesh;  // NIKOS: The Proper thing to use here is a factory and we
+               // wouldn't use a pointer to a Mesh. L8r...
   if (DataFileUse) {
     std::cout << "Reading Mesh from datafile: " << std::string{DataFileName}
               << "\n";
@@ -54,9 +56,10 @@ int main(int argc, char **argv) {
   }
   MyMesh->PrintFirstN();
 
-  Graphics visualize;
+  Graphics visualize("../src/position.vert", "../src/red.frag");
   visualize.Background(0.0f, 0.0f, 0.4f);  // Dark blue background
-  visualize.loop();
+  visualize.PointData(MyMesh->ByteSize(), MyMesh->RawData());
+  visualize.loop(MyMesh->Size());
 
   return 0;
 }
