@@ -27,6 +27,12 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 	set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Choose the type of build." FORCE)
 endif()
 
+# Optionally enable link time optimization (LTO) by adding the `-flto` flag.
+# This provides smaller, faster executables/DSOs, and improves GCC
+# diagnostics.
+include(CheckIPOSupported)
+check_ipo_supported(RESULT LTOAvailable)
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(OpenGL REQUIRED)
