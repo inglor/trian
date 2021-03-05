@@ -6,4 +6,10 @@ list(APPEND ${PROJECT_NAME}_LIBS "glfw" "GLEW::GLEW" "OpenGL::GL")
 #NIKOS endif()
 
 add_executable(${PROJECT_NAME} ${SRCS})
+
+if (LTOAvailable)
+    message(STATUS "Link-time optimization enabled")
+    set_property(TARGET ${PROJECT_NAME} PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+endif ()
+
 target_link_libraries(${PROJECT_NAME} ${${PROJECT_NAME}_LIBS})
